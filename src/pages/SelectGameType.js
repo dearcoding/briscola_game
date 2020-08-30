@@ -3,11 +3,14 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground} from 'react-native';
 
 
-export default function SelectGameType() {
+export default function SelectGameType({ navigation }) {
     return (
             <View style={styles.container}>
                 <Text style={styles.textTitle}>Select game type</Text>
-                <TouchableOpacity style={styles.buttonStyle}>
+                <TouchableOpacity style={styles.buttonStyle}
+                    onPress={() =>
+                        navigation.navigate('GameField')
+                    }>
                     <Text style={styles.buttonText}>Play vs CPU</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonStyle2}>
