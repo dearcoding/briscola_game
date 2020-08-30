@@ -13,7 +13,7 @@ const App = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
-                    name="Home2"
+                    name="Home"
                     component={HomeScreen}
                 />
                 <Stack.Screen
