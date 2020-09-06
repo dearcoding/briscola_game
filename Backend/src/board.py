@@ -1,6 +1,6 @@
 import random
-from .player import *
-from .card import Card
+from player import *
+from card import Card
 
 suits = ['Denari', 'Spade', 'Bastoni', 'Coppe']
 card_numbers = ['Asso', 'Tre', 'Re', 'Donna', 'Fante', 'Sette', 'Sei', 'Cinque', 'Quattro', 'Due']
@@ -10,7 +10,7 @@ class Board():
     def __init__(self, number_cards=40):
         self.cards = self.initialize_cards()
         self.remaining_cards = number_cards
-        
+        self.last_winner = 0        
 
     def shuffle(self):
         """
@@ -24,11 +24,13 @@ class Board():
             card = self.cards[index]
             self.cards[index] = temp
 
-    def deal(self, turn, last_winner=0):
+    def deal(self, turn):
         """
         Deal the card (3 for each player during turn 0 and
         1 each player during other turn)
         
+        Last_winner = 0 means that Player wins last turn instead
+        last_winner = 1 means that CPU wins last turn
         Param:
             turn (number of turn on game)
             player (object of type Player)
@@ -39,7 +41,7 @@ class Board():
             self.other = CPU(self.cards[3:6])
             self.briscola = self.cards[6]
             self.remaining_cards = self.remaining_cards - 7
-        elif last_winner == 0:
+        elif self.last_winner == 0:#Player wins last turn
             if self.remaining_cards == 1:
                 self.player.set_card(self.cards[40-self.remaining_cards])
                 self.other.set_card(self.briscola)
@@ -49,7 +51,7 @@ class Board():
                 self.remaining_cards = self.remaining_cards - 1
                 self.other.set_card(self.cards[40-self.remaining_cards])
                 self.remaining_cards = self.remaining_cards - 1
-        else:
+        else:#CPU Winner turn
             if self.remaining_cards == 1:
                 self.other.set_card(self.cards[40-self.remaining_cards])
                 self.player.set_card(self.briscola)
@@ -89,9 +91,9 @@ class Board():
             player (object of type Player)
             other (object of type Player)
         """
-        winner = decideWinner(last_winner)
-        deal(self, turn, winner)
-        return winner
+        self.last_winner = decideWinner(last_winner)
+        deal(self, turn)
+        return self.last_winner
         
     def decideWinner(self, last_winner):
         """
