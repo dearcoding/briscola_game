@@ -35,7 +35,13 @@ class Player():
         """
         return self.chosen_card
 
-
+    def set_chosen_card(self, card):
+        """
+        Set the chosen card by a Player during a turn
+        """
+        if card in self.cards:
+            self.chosen_card = card
+        
 
 class User(Player):
     """
@@ -55,7 +61,7 @@ class CPU(Player):
     def __init__(self, cards, player_name="CPU"):
         super().__init__(cards, player_name)
 
-    def chosen_card(self):
+    def set_chosen_card(self):
         """
         Choose card to play by CPU player
         """

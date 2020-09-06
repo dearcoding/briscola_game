@@ -6,19 +6,17 @@ suits = ['Denari', 'Spade', 'Bastoni', 'Coppe']
 card_numbers = ['Asso', 'Tre', 'Re', 'Donna', 'Fante', 'Sette', 'Sei', 'Cinque', 'Quattro', 'Due']
 
 class Board():
-    
     def __init__(self, number_cards=40):
         self.cards = self.initialize_cards()
         self.remaining_cards = number_cards
-        self.last_winner = 0        
+        self.last_winner = 0
 
     def shuffle(self):
         """
-        Shuffle the cards 
+        Shuffle the cards
         """
         for card in self.cards:
             index = random.randint(0, self.remaining_cards-1)
-            
             #Swap element
             temp = card
             card = self.cards[index]
@@ -28,7 +26,6 @@ class Board():
         """
         Deal the card (3 for each player during turn 0 and
         1 each player during other turn)
-        
         Last_winner = 0 means that Player wins last turn instead
         last_winner = 1 means that CPU wins last turn
         Param:
@@ -81,7 +78,7 @@ class Board():
         self.shuffle()
         self.deal(0)
 
-    def turn(self, turn, last_winner=0):
+    def turn(self, turn):
         """
         A turn of Game of Briscola(decide the winner of turn and
         deal the new cards)
@@ -91,11 +88,12 @@ class Board():
             player (object of type Player)
             other (object of type Player)
         """
-        self.last_winner = decideWinner(last_winner)
-        deal(self, turn)
+        self.last_winner = decideWinner()
+        self.deal(turn)
         return self.last_winner
-        
-    def decideWinner(self, last_winner):
+       
+
+    def decideWinner(self):
         """
         Decide who is the winner of a hand in Briscola game
 
@@ -103,7 +101,7 @@ class Board():
             last_winner (boolean value to indicate which player has won
                          the last turn)
         """
-        if last_winner == 0:
+        if self.last_winner == 0:
             card1 = self.player.get_chosen_card()
             card2 = self.other.get_chosen_card()
         else:
@@ -113,17 +111,16 @@ class Board():
         if card1.suit == self.briscola.suit and card2.suit == self.briscola.suit:
             card1index = card_numbers.index(card1.card)
             card2index = card_numbers.index(card2.card)
-            return last_winner if card1index < card2index else 1 - last_winner 
+            return self.last_winner if card1index < card2index else 1 - self.last_winner
         elif card1.suit == self.briscola.suit:
-            return last_winner
+            return self.last_winner
 
         elif card2.suit == self.briscola.suit:
-            return 1 - last_winner
+            return 1 - self.last_winner
 
         elif card1.suit == card2.suit:
             card1index = card_numbers.index(card1.card)
             card2index = card_numbers.index(card2.card)
-            return last_winner if card1index < card2index else 1 - last_winner
+            return self.last_winner if card1index < card2index else 1 - self.last_winner
         else:
-            return last_winner
-            
+            return self.last_winner            

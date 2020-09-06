@@ -6,5 +6,5 @@ class Player(me.EmbeddedDocument):
 class Game(me.Document):
     player1 = me.EmbeddedDocumentField(Player)
     player2 = me.EmbeddedDocumentField(Player)
-    board = me.DictField(required=True)
+    board = me.DictField()
     winner = me.EmbeddedDocumentField(Player)

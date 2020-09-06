@@ -1,7 +1,7 @@
 import unittest
 import sys
-sys.path.append("/home/bigboss98/Programming/Projects/briscola_game/Backend")
-from src.board import *
+sys.path.append("/home/bigboss98/Programming/Projects/briscola_game/Backend/src")
+from board import *
 
 class TestBoard(unittest.TestCase):
 
@@ -33,20 +33,29 @@ class TestBoard(unittest.TestCase):
         board.initialize_game()
         board.player.chosen_card = Card("Denari", "Tre")
         board.other.chosen_card = Card("Denari", "Asso")
-        self.assertEqual(board.decideWinner(0), 1)
+        board.last_winner = 1
+        self.assertEqual(board.decideWinner(), 1)
         
     def testHandWithBriscola(self):
         board = Board()
         board.initialize_game()
         board.player.chosen_card = Card(board.briscola.suit, "Re")
         board.other.chosen_card = Card("Denari", "Cinque")
-        self.assertEqual(board.decideWinner(0), 0)
+        board.last_winner = 0
+        self.assertEqual(board.decideWinner(), 0)
 
     def testHandWithBothBriscola(self):
         board = Board()
         board.initialize_game()
         board.player.chosen_card = Card(board.briscola.suit, "Quattro")
         board.other.chosen_card = Card(board.briscola.suit, "Tre")
-        self.assertEqual(board.decideWinner(0), 1)
-
-
+        board.last_winner = 0
+        self.assertEqual(board.decideWinner(), 1)
+    
+    def testHandWithDifferentSuit(self):
+        board = Board()
+        board.initialize_game()
+        board.player.chosen_card = Card("Denari", "Tre")
+        board.other.chosen_card = Card("Spade", "Quattro")
+        board.last_winner = 0
+        self.assertEqual(board.decideWinner(), 0)
