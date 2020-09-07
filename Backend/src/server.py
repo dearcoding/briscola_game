@@ -11,6 +11,7 @@ import random
 import sys
 from board import Board
 from database import Game, Player
+import json
 
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {
@@ -20,9 +21,39 @@ app.config['MONGODB_SETTINGS'] = {
 db = MongoEngine(app)
 ASSETS_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
+def cards_object_to_list(object):
+    new_list = []
+    for card in object.cards:
+        tmp = []
+        tmp.append(card.suit)
+        tmp.append(card.card)
+        new_list.append(tmp)
+    return new_list
+
+def board_to_dict(board):
+    # FROM CARDS LIST OF OBJECT TO SIMPLE LIST
+    board_cards = cards_object_to_list(board)
+    player_cards = cards_object_to_list(board.player)
+    other_cards = cards_object_to_list(board.other)
+    # GENERATE NEW DICT
+    new_dict = board.__dict__
+    new_dict['cards'] = board_cards
+    new_dict['player'] = board.player.__dict__
+    new_dict['player']['cards'] = player_cards
+    new_dict['other'] = board.other.__dict__
+    new_dict['other']['cards'] = player_cards
+
+    tmp = []
+    tmp.append(board.briscola.suit)
+    tmp.append(board.briscola.card)
+
+    new_dict['briscola'] = tmp
+    return new_dict
+
 @app.route('/new_game/<string:player>', methods=['GET'])
 def new_game(player):
-    game = Game(player1= Player(name=player), player2= Player(name="cpu"))
+    game = Game(player1 = Player(name=player), player2 = Player(name="cpu"))
     game.save()
     return({"game_id": str(game.id)})
 
@@ -31,9 +62,11 @@ def start_game(game_id):
     game = Game.objects(id=game_id)
     board = Board()
     board.initialize_game()
-    game.modify(upsert=True, new=True, set__board=jsonpickle.encode(board))
-    return({'cards': jsonpickle.encode(board.player.cards),
-            'briscola': jsonpickle.encode(board.briscola)})
+    game.update(set__board=jsonpickle.encode(board))
+    new_board = jsonpickle.decode(game[0].board)
+    new_board_dict = board_to_dict(new_board)
+    return({'cards': new_board_dict['player']['cards'],
+                'briscola': new_board_dict['briscola']})
 
 
 @app.route('/move/<string:game_id>', methods=['POST'])
