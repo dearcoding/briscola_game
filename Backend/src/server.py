@@ -11,6 +11,7 @@ import random
 import sys
 from board import Board
 from database import Game, Player
+from card import Card
 import json
 
 app = Flask(__name__)
@@ -71,11 +72,24 @@ def start_game(game_id):
 
 @app.route('/move/<string:game_id>', methods=['POST'])
 def move(game_id):
-    board = jsonpickle.decode(Game.objects(id=game_id).board)
-    board.player.set_chosen_card(Card(request.form['suit'], request.form['card']))
-    board.turn(request.form['turn'])
-    Game.objects(id=game_id).modify(upsert=True, new=True, set__board=jsonpickle.encode(board))
-    return({'card_opponent': board.other.get_chosen_card(), 
+    # we get json data
+    card = request.json["card"]
+    turn = request.json["turn"]
+
+    game = Game.objects(id=game_id)
+
+    board = jsonpickle.decode(game[0].board)
+    board.player.set_chosen_card(Card(card["suit"], card["card"]))
+    board.other.set_chosen_card()
+
+    board.turn(turn)
+
+    game.update(set__board=jsonpickle.encode(board))
+
+    new_board = jsonpickle.decode(game[0].board)
+    new_board_dict = board_to_dict(new_board)
+
+    return({'card_opponent': new_board_dict['other']['chosen_card'],
            'new_draw_card': None,
            'win': "True" if board.last_winner == 0 else "False"})
 

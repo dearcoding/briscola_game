@@ -88,7 +88,7 @@ class Board():
             player (object of type Player)
             other (object of type Player)
         """
-        self.last_winner = decideWinner()
+        self.last_winner = self.decideWinner()
         self.deal(turn)
         return self.last_winner
        

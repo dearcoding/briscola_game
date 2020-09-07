@@ -33,14 +33,15 @@ class Player():
         """
         Get the chosen card by a Player during a turn
         """
+        print(self.chosen_card)
         return self.chosen_card
 
     def set_chosen_card(self, card):
         """
         Set the chosen card by a Player during a turn
         """
-        if card in self.cards:
-            self.chosen_card = card
+        #if card in self.cards:
+        self.chosen_card = card
         
 
 class User(Player):
