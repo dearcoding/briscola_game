@@ -25,9 +25,9 @@ ASSETS_DIR = os.path.dirname(os.path.abspath(__file__))
 def cards_object_to_list(object):
     new_list = []
     for card in object.cards:
-        tmp = []
-        tmp.append(card.suit)
-        tmp.append(card.card)
+        tmp = {}
+        tmp['suit'] = (card.suit)
+        tmp['card'] = (card.card)
         new_list.append(tmp)
     return new_list
 
@@ -44,9 +44,9 @@ def board_to_dict(board):
     new_dict['other'] = board.other.__dict__
     new_dict['other']['cards'] = player_cards
 
-    tmp = []
-    tmp.append(board.briscola.suit)
-    tmp.append(board.briscola.card)
+    tmp = {}
+    tmp['suit'] = board.briscola.suit
+    tmp['card'] = board.briscola.card
 
     new_dict['briscola'] = tmp
     return new_dict
