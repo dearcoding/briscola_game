@@ -66,13 +66,12 @@ def start_game(game_id):
     game.update(set__board=jsonpickle.encode(board))
     new_board = jsonpickle.decode(game[0].board)
     new_board_dict = board_to_dict(new_board)
-    return({'cards': new_board_dict['player']['cards'],
-                'briscola': new_board_dict['briscola']})
+    return({'cards': [card.toJson() for card in board.player.cards],
+            'briscola': board.briscola.toJson()})
 
 
 @app.route('/move/<string:game_id>', methods=['POST'])
 def move(game_id):
-    # we get json data
     card = request.json["card"]
     turn = request.json["turn"]
 
@@ -87,9 +86,8 @@ def move(game_id):
     game.update(set__board=jsonpickle.encode(board))
 
     new_board = jsonpickle.decode(game[0].board)
-    new_board_dict = board_to_dict(new_board)
 
-    return({'card_opponent': new_board_dict['other']['chosen_card'],
+    return({'card_opponent': new_board.other.get_chosen_card().toJson(),
            'new_draw_card': None,
            'win': "True" if board.last_winner == 0 else "False"})
 
