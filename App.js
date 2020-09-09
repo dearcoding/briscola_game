@@ -5,6 +5,7 @@ import createStackNavigator from "@react-navigation/stack/src/navigators/createS
 
 import HomeScreen from "./src/pages/HomeScreen";
 import SelectGameType from "./src/pages/SelectGameType";
+import InsertNameGame from "./src/pages/InsertNameGame";
 import GameField from "./src/pages/GameField";
 
 const Stack = createStackNavigator();
@@ -20,6 +21,10 @@ const App = () => {
                 <Stack.Screen
                     name="SelectGame"
                     component={SelectGameType}
+                />
+                <Stack.Screen
+                    name="InsertNameGame"
+                    component={InsertNameGame}
                 />
                 <Stack.Screen
                     name="GameField"
