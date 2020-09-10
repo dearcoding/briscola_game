@@ -1,5 +1,6 @@
-import {TouchableOpacity, Text, Image, View, StyleSheet } from 'react-native';
+import {TouchableOpacity, Text, Image, View, StyleSheet, Animated } from 'react-native';
 import React, { Component } from 'react';
+import axios from "axios";
 
 const assets = require('root/src/utils/cards_path.js');
 
@@ -7,12 +8,10 @@ export default class Card extends Component {
     render() {
         let { position, left, top, nameCard } = this.props;
         return (
-            <TouchableOpacity style={{position : position, left: left, top: top}}>
-                <View style={styles.absoluteView}>
-                    <Text>{nameCard}</Text>
+                <View style={{position : position, left: left, top: top}}>
+                    <Image source={assets[nameCard]} style={styles.img}/>
                 </View>
-                <Image source={assets[nameCard]} style={styles.img}/>
-            </TouchableOpacity>
+
         );
     }
 }
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     img : {
-        width: 130,
-        height: 200
+        width: 100,
+        height: 150
     }
 });
