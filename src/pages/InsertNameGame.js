@@ -2,24 +2,21 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 import axios from 'axios';
-
-
+import {newGame} from '../api/api';
 
 export default function InsertNameGame({ navigation }) {
+    /*
+     * InsertNameGame is the component used to render the choice of the name of Player
+     */
     const [text, setText] = useState('');
-    const newGame = () => {
-        axios
-            .get('http://192.168.1.26:5000/new_game/' + text)
-            .then(function(response) {
-                const gameIdData = response.data.game_id
-                navigation.navigate('GameField', {
-                    gameId : gameIdData
-                });
-            })
-            .catch(function(error) {
-                alert(error.message + text);
-            })
-    };
+    
+    function handleGame(){
+        if (text !== ""){
+            alert(newGame(text));
+            navigation.navigate('Game', {gameId: newGame(text), })
+        }
+    }
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -29,7 +26,7 @@ export default function InsertNameGame({ navigation }) {
                 defaultValue={text}
             />
             <TouchableOpacity style={styles.buttonStyle2}
-                              onPress={newGame}>
+                              onPress={handleGame}>
                 <Text style={styles.buttonText}>Start game</Text>
             </TouchableOpacity>
         </View>

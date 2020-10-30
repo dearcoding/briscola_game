@@ -1,8 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground} from 'react-native';
 
 export default function HomeScreen({ navigation }) {
+    /*
+     * HomeScreen is the component used to render the home of Briscola game App
+     */
   return (
         <View style={styles.container}>
               <Text style={styles.textTitle}>Briscola game</Text>
@@ -21,7 +23,9 @@ const styles = StyleSheet.create({
   container: {
       flex: 1,
       alignItems: 'center',
-      marginTop: 205
+      marginTop: 205,
+      width: 100+"%",
+      height: 100+"%"
   },
   image: {
       flex: 1,

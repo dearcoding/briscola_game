@@ -3,7 +3,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground} from 'react-native';
 
 export default function SelectGameType({ navigation }) {
-    return (
+    /*
+     * SelectGameType is the component used to select which modalities of Briscola game between
+     * Single player and Multiplayer
+     */
+        return (
             <View style={styles.container}>
                 <Text style={styles.textTitle}>Select game type</Text>
                 <TouchableOpacity style={styles.buttonStyle}
@@ -16,7 +20,7 @@ export default function SelectGameType({ navigation }) {
                     <Text style={styles.buttonText}>Play vs FRIEND</Text>
                 </TouchableOpacity>
             </View>
-    );
+        );
 }
 
 const styles = StyleSheet.create({

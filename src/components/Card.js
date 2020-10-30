@@ -2,7 +2,7 @@ import {TouchableOpacity, Text, Image, View, StyleSheet, Animated } from 'react-
 import React, { Component } from 'react';
 import axios from "axios";
 
-const assets = require('root/src/utils/cards_path.js');
+const assets = require('../utils/cards_path.js');
 
 export default class Card extends Component {
     render() {
