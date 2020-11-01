@@ -1,31 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default function HomeScreen({ navigation }) {
     /*
      * HomeScreen is the component used to render the home of Briscola game App
      */
   return (
-        <View style={styles.container}>
-              <Text style={styles.textTitle}>Briscola game</Text>
+            <View style={styles.container}>
+                <Text style={styles.textTitle}>Briscola game</Text>
                 <TouchableOpacity style={styles.buttonStyle}
-                      onPress={() =>
-                            navigation.navigate('SelectGame')
-                    }
+                                  onPress={() =>
+                                      navigation.navigate('SelectGame')
+                                  }
                 >
                     <Text style={styles.buttonText}>Play now</Text>
                 </TouchableOpacity>
-        </View>
+            </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
       alignItems: 'center',
-      marginTop: 205,
-      width: 100+"%",
-      height: 100+"%"
+      marginTop: hp('15%'),
   },
   image: {
       flex: 1,
@@ -33,17 +31,17 @@ const styles = StyleSheet.create({
       justifyContent: "center",
   },
   textTitle : {
-      fontSize : 50,
+      fontSize : wp('10%'),
       color: '#4280ff',
       fontWeight: 'bold'
   },
   buttonStyle : {
-      marginTop: 150,
+      marginTop: hp('10%'),
       backgroundColor: '#4280ff',
-      padding: 30,
-      borderRadius : 30
+      padding: wp('10%'),
+      borderRadius : wp('10%'),
   },
   buttonText : {
-      fontSize: 35
+      fontSize: wp('10%'),
   }
 });

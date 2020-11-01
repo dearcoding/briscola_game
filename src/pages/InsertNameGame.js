@@ -1,27 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
-import axios from 'axios';
-import {newGame} from '../api/api';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {newGame} from '../controller/InsertNameGameController'
 
 export default function InsertNameGame({ navigation }) {
     /*
      * InsertNameGame is the component used to render the choice of the name of Player
      */
     const [text, setText] = useState('');
-    
-    function handleGame(){
-        if (text !== ""){
-            alert(newGame(text));
-            navigation.navigate('Game', {gameId: newGame(text), })
-        }
+
+    async function handleGame(){
+        const game_id = await newGame(text)
+        alert(game_id)
+        navigation.navigate('Game', { gameId: game_id })
     }
 
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Type here your player name"
+                placeholder="Type here your name"
                 onChangeText={text => setText(text)}
                 defaultValue={text}
             />
@@ -37,31 +36,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 150
+        marginTop: hp('15%'),
     },
     textTitle : {
-        fontSize : 50,
+        fontSize : wp('4%'),
         color: '#4280ff',
         fontWeight: 'bold'
     },
     inputStyle : {
-        fontSize : 30,
-        marginTop: 50,
-    },
-    buttonStyle : {
-        marginTop: 100,
-        backgroundColor: '#4280ff',
-        padding: 30,
-        borderRadius : 30
+        fontSize : wp('8%'),
+        marginTop: hp('10%'),
     },
     buttonStyle2 : {
-        marginTop: 50,
+        marginTop: hp('10%'),
         backgroundColor: '#4280ff',
-        padding: 30,
-        borderRadius : 30
+        padding: wp('10%'),
+        borderRadius : wp('10%'),
     },
     buttonText : {
-        fontSize: 35
+        fontSize: wp('10%'),
     }
 
 });
