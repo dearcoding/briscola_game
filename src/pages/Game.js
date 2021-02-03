@@ -23,7 +23,7 @@ export default function Game({ navigation, route }){
             return startGame(gameId);
         }, []);
 
-    function moveCard(index) {
+    /*function moveCard(index) {
         let player = [];
         alert(index);
         let i = 1;
@@ -67,7 +67,7 @@ export default function Game({ navigation, route }){
     const [players, setPlayers] = useState(cardList);
     const moved_zero = 0;
     const briscolaNew = (<Card></Card>);
-    const [briscola_card, setBriscola] = useState(briscolaNew);
+    const [briscola_card, setBriscola] = useState(briscolaNew);*/
     
     return (
         <View style={styles.container}>

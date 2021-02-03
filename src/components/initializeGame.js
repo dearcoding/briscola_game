@@ -19,7 +19,7 @@ export function Deck(){
     }
     return deck;
     
-};
+}
 
 export function BriscolaCard(){
 
