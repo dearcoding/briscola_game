@@ -5,22 +5,13 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 export default class Deck extends Component {
     render() {
-        let {numberOfCardsDeck} = this.props;
+        let {card, suit} = this.props;
 
-        let cards = [];
-
-        for(let i=0; i<numberOfCardsDeck; i++){
-            cards.push(
-                (<Card key={i} position={"absolute"} left={ wp((0.2*i).toString() + "%")} nameCard={"Covered"}/>)
-            );
-        }
 
         return(
             <View style={styles.main}>
-                <Text style={styles.textDesc}>Deck</Text>
-                <View style={styles.deck}>
-                    {cards}
-                </View>
+                <Text style={styles.textDesc}>Briscola's Card</Text>
+                <Card nameCard={card + suit}/>
             </View>
         );
     }
@@ -38,6 +29,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     main : {
-        left : wp('2%'),
+        left : wp('30%'),
     }
 });

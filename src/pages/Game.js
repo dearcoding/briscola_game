@@ -5,6 +5,8 @@ import {startGame} from "../controller/GameController";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import OpponentsCard from "../components/OpponentsCard";
 import Deck from "../components/Deck";
+import BriscolaCard from "../components/BriscolaCard";
+import PlayersCard from "../components/PlayersCard";
 
 export default function Game({ navigation, route }){
     /*
@@ -37,7 +39,7 @@ export default function Game({ navigation, route }){
 
     useEffect(() => {
         if(state.gameStarted)
-            console.log(state.data.briscola);
+            console.log(state.data);
     },[state.data])
 
     return (
@@ -46,6 +48,8 @@ export default function Game({ navigation, route }){
                 <View>
                     <OpponentsCard style={styles.opponent} numberOfCards = {state.numberCardsOpponent}/>
                     <Deck style={styles.deck} numberOfCardsDeck = {state.numberCardsDeck}/>
+                    <BriscolaCard style={styles.briscolaCard} card = {state.data.briscola.card} suit = {state.data.briscola.suit}/>
+                    <PlayersCard style={styles.player} cards = {state.data.cards}/>
                 </View> : <ActivityIndicator size="large" />
                 }
             </View>
@@ -54,7 +58,8 @@ export default function Game({ navigation, route }){
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: hp('5%'),
+        position: "relative",
+        top: hp('5%'),
     },
     opponent : {
         position: "absolute",
@@ -63,5 +68,13 @@ const styles = StyleSheet.create({
     deck : {
         position: "absolute",
         top: hp("40%"),
+    },
+    briscolaCard : {
+        position: "absolute",
+        top: hp("40%"),
+    },
+    player : {
+        position: "absolute",
+        top: hp("80%"),
     },
 });

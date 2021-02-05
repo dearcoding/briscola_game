@@ -3,23 +3,22 @@ import React, { Component } from 'react';
 import Card from "../components/Card";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-export default class OpponentsCard extends Component {
+export default class PlayersCard extends Component {
     render() {
-        let {numberOfCards} = this.props;
+        let {cards} = this.props;
 
-        let cards = [];
-
-        for(let i=0; i<numberOfCards; i++){
-            cards.push(
-                (<Card key={i} nameCard={"Covered"}/>)
-            );
-        }
+        let cards_to_display = [];
+        let c = 0;
+        cards.forEach(function (i) {
+            cards_to_display.push(<Card key={c} nameCard={i.card + i.suit}/>)
+            c++;
+        })
 
         return(
             <View style={styles.main}>
-                <Text style={styles.textDesc}>Opponent's Cards</Text>
+                <Text style={styles.textDesc}>Player's Cards</Text>
                 <View style={styles.opponent}>
-                    {cards}
+                    {cards_to_display}
                 </View>
             </View>
         );
