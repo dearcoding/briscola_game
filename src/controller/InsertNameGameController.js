@@ -9,6 +9,5 @@ import req from '../api/req.js'
 */
 export async function newGame(text) {
     const response = await req.get('/new_game/' + text);
-    const gameId = response.data.game_id;
-    return gameId;
+    return response.data.game_id;;
 }

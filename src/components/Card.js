@@ -1,7 +1,7 @@
 import {TouchableOpacity, Text, Image, View, StyleSheet, Animated } from 'react-native';
 import React, { Component } from 'react';
 import axios from "axios";
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const assets = require('../utils/cards_path.js');
 
 export default class Card extends Component {
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     img : {
-        width: 100,
-        height: 150
+        width: wp('20%'),
+        height: wp('30%')
     }
 });
